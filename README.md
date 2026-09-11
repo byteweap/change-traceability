@@ -4,6 +4,53 @@
 
 An AI skill for maintaining traceability across substantive software changes and adapting to existing project documentation conventions. It helps an AI agent decide whether a change needs documentation, how much documentation is appropriate, and how to keep records aligned with requirements, decisions, implementation, verification, deviations, risks, and remaining work.
 
+## Install
+
+Paste this into your coding agent:
+
+```text
+Install the change-traceability skill from https://github.com/byteweap/change-traceability
+for me by running: npx skills add byteweap/change-traceability -g
+```
+
+Or run it yourself:
+
+```bash
+npx skills add byteweap/change-traceability -g
+```
+
+The CLI detects supported coding agents and installs the skill into their shared global skills directory. Omit `-g` to install it into the current project instead. To install manually, copy or link this repository into your agent's skills directory and keep `SKILL.md` at the skill root.
+
+## Usage tutorial
+
+After installation, invoke the skill explicitly:
+
+```text
+$change-traceability
+```
+
+Then describe the change, constraints, and any issue or acceptance criteria. For example:
+
+```text
+Use $change-traceability to implement support for retrying failed payments.
+Inspect the existing documentation conventions first, record the requirements and
+decisions, implement the change, run the relevant checks, and report evidence,
+remaining risks, and unexecuted checks.
+```
+
+The skill inspects the host project's instructions and documentation layout first, then reuses existing `docs/`, ADR, RFC, issue, or pull-request conventions. It selects the smallest sufficient traceability level automatically; you can also specify Level 0, Level 1, Level 2, or ADR explicitly.
+
+For substantive changes, ask it to keep the record synchronized during implementation:
+
+```text
+Keep the traceability record synchronized as you work. Update progress,
+assumptions, deviations, decisions, and verification results; do not mark
+checks as passed unless they were actually run.
+```
+
+Before delivery, verify that the final report includes the selected level and rationale, record locations, implementation changes, acceptance and verification evidence, unexecuted checks, deviations, risks, remaining work, and code-review status separately from test results and business acceptance.
+
+
 ## Why this exists
 
 AI-assisted development can produce a working patch without preserving why the change was made, what was explicitly out of scope, which assumptions were used, or what remains unverified. This skill turns traceability into a proportional, repeatable workflow without forcing every project into one documentation system.
@@ -77,87 +124,6 @@ The host project's rules, paths, templates, terminology, and collaboration workf
 - `SKILL.md` — runtime instructions for an AI agent.
 - `agents/openai.yaml` — optional OpenAI UI metadata.
 - `references/` — level guidance, discovery rules, fallback templates, and evidence formats.
-
-## Installation
-
-Copy or link this directory into the skills directory supported by your AI agent. Keep the directory name `change-traceability` and ensure `SKILL.md` remains at its root.
-
-For Codex-style local skills, the resulting layout is typically:
-
-```text
-<skills-root>/change-traceability/SKILL.md
-```
-
-## Usage tutorial
-
-### 1. Install the skill
-
-Copy or link this repository into the skills directory used by your AI agent, then restart or refresh the agent if required:
-
-```text
-<skills-root>/change-traceability/SKILL.md
-```
-
-For Codex-style agents, the skill can usually be invoked explicitly with:
-
-```text
-$change-traceability
-```
-
-### 2. Ask the agent to trace a change
-
-Include the requested behavior, constraints, and any available issue or acceptance criteria. For example:
-
-```text
-Use $change-traceability to implement support for retrying failed payments.
-Inspect the existing documentation conventions first, record the requirements and
-decisions, implement the change, run the relevant checks, and report evidence,
-remaining risks, and unexecuted checks.
-```
-
-The skill will first inspect the host project's instructions and documentation layout. It reuses existing `docs/`, ADR, RFC, issue, or pull-request conventions instead of creating a parallel hierarchy.
-
-### 3. Choose the appropriate traceability level
-
-The agent selects the smallest sufficient level automatically, or you can state one explicitly:
-
-- Use **Level 0** for formatting, comments, or other non-behavioral edits.
-- Use **Level 1** for a localized bug fix or small internal behavior change.
-- Use **Level 2** for new features, public interfaces, data or protocol changes, migrations, security, workflow changes, cross-module work, or release-critical changes.
-- Add an **ADR** when the implementation involves a material technical choice with meaningful alternatives or rollback implications.
-
-Example:
-
-```text
-Use Level 2 traceability for this API change. Capture the scope, non-goals,
-acceptance criteria, compatibility impact, verification evidence, and risks.
-```
-
-### 4. Maintain the record while implementing
-
-For a substantive change, ask the agent to keep the record current during implementation:
-
-```text
-Keep the traceability record synchronized as you work. Update progress,
-assumptions, deviations, decisions, and verification results; do not mark
-checks as passed unless they were actually run.
-```
-
-A typical Level 1 record covers the problem, root cause, fix boundary, verification evidence, impact, assumptions, risks, and remaining work. A Level 2 change normally maps each acceptance criterion to a concrete test, command, review, artifact, or explicitly documented manual check.
-
-### 5. Review the final report
-
-Before delivery, confirm that the response identifies:
-
-- the selected traceability level and rationale;
-- records created or updated and their locations;
-- implementation and behavioral changes;
-- acceptance and verification evidence;
-- checks that were not run and why;
-- deviations, assumptions, risks, and remaining work; and
-- code-review status separately from test results and business acceptance.
-
-If no project convention exists, the bundled files under [`references/`](references/) provide minimal fallback templates.
 
 ## Validation
 
