@@ -1,0 +1,4 @@
+interface:
+  display_name: "Change Traceability"
+  short_description: "Document substantive software changes with proportional traceability."
+  default_prompt: "Use $change-traceability to assess the required traceability level, reuse project documentation conventions, and keep requirements, decisions, verification evidence, and risks synchronized with the implementation."
