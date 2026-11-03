@@ -18,17 +18,17 @@ Use this skill when a task changes business behavior, interfaces, data, protocol
 
 1. Classify the requested change and identify whether traceability is required.
 2. Select the minimum sufficient traceability level; if multiple conditions apply, use the highest level.
-3. Discover the project's documentation location, naming conventions, templates, and collaboration records before creating files.
-4. Create or update the appropriate records before or during implementation.
+3. Read `references/documentation-discovery.md` before creating or relocating records. Discover the project's documentation location, naming conventions, templates, and collaboration records; distinguish explicit rules from incidental flat files.
+4. Resolve the record location and create missing parent directories before writing substantive records, before or during implementation. For a new change without an applicable project convention, use `<docs-root>/<change-slug>/`; use `docs` as the root only when no documentation root exists. Reuse records for the same change, including legacy flat files.
 5. Keep requirements, assumptions, decisions, progress, deviations, and risks synchronized with the actual implementation.
 6. Link acceptance criteria to concrete verification evidence.
-7. Before delivery, check that the record is complete, current, and does not claim unverified results.
+7. Before delivery, verify that the intended files exist at the resolved paths, contain substantive content, and have working local links. Check that the record is complete, current, and does not claim unverified results. Report creation failures without silently falling back to flat files.
 8. Report the selected level, updated records, evidence, unexecuted checks, deviations, risks, and remaining work.
 
 Read the relevant reference only when the current task needs its detail:
 
 - `references/traceability-levels.md` for level selection.
-- `references/documentation-discovery.md` for adapting to an existing project documentation system.
+- `references/documentation-discovery.md` for placement precedence, automatic topic-directory creation, naming, and legacy records.
 - `references/lightweight-template.md` for a small change record.
 - `references/requirements-template.md` for a full business requirements record.
 - `references/progress-template.md` for implementation and verification progress.
@@ -52,7 +52,8 @@ Use project terminology and workflow for review status. If no convention exists,
 ## Boundaries
 
 - Project-specific instructions, paths, templates, terminology, and collaboration practices override the defaults in this skill.
-- Do not invent a parallel documentation hierarchy when the project already has one.
+- Do not invent a parallel documentation hierarchy when the project already has an applicable convention. A few flat documents alone do not establish a flat-only rule; use the topic-directory fallback for new changes in that case.
+- Preserve historical record locations unless migration is requested. Do not duplicate an existing change record to fit the fallback layout.
 - Do not create an empty template as the only trace record.
 - Do not invent confirmed requirements from incomplete information; mark assumptions and items requiring confirmation.
 - Do not hide scope changes, implementation deviations, unexecuted checks, failed checks, or unresolved risks.

@@ -119,6 +119,29 @@ This skill can be used across projects, but it does not require every project to
 
 The host project's rules, paths, templates, terminology, and collaboration workflow take precedence. Before creating files, look for project instructions, `docs/`, `doc/`, `adr/`, `design/`, RFCs, similar records, PR templates, and issue templates. If no convention exists, use the smallest suitable fallback from `references/`.
 
+## Automatic topic directories
+
+For a new change without an applicable project convention, the skill instructs the agent to create `<docs-root>/<change-slug>/` before writing records. It reuses the project's documentation root (for example, `doc/`); only a project without one defaults to `docs/`. A few existing flat Markdown files alone do not require future records to remain flat.
+
+```text
+docs/
+├── quick-match-waiting/
+│   ├── requirements.md
+│   ├── progress.md
+│   └── decision.md       # Optional ADR
+└── dev-rollout-capacity-fix/
+    └── change.md
+```
+
+- Level 0 creates no directory or record.
+- Level 1 uses `change.md`; Level 2 uses `requirements.md` and `progress.md`.
+- Add `decision.md` only when needed; reuse an established ADR location if one exists.
+- Repeated work on the same change updates its existing records. Distinct changes with colliding names use an issue identifier or descriptive qualifier.
+- Historical flat records stay in place and are updated there for the same change. Migration requires a separate request.
+- Explicit project placement rules, including flat-only and external issue/PR workflows, take precedence.
+
+The agent creates missing parent directories, writes substantive content, and checks the resulting files and local links. A creation failure must be reported with the path and cause; it must not silently fall back to a flat file. This is an instruction-based workflow, with no initialization script added. See [documentation discovery and placement](references/documentation-discovery.md) for the full rules and placement review cases.
+
 ## Repository layout
 
 - `SKILL.md` — runtime instructions for an AI agent.

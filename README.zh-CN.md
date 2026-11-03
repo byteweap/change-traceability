@@ -117,6 +117,29 @@ Skill 自带默认模板使用英文，以便跨项目复用。生成文档时�
 
 目标项目的规则、路径、模板、术语和协作流程优先级最高。创建文件前，应检查项目规则、`docs/`、`doc/`、`adr/`、`design/`、RFC、类似变更记录、PR 模板和 Issue 模板。如果项目没有既有约定，再使用 `references/` 中最小适用的默认模板。
 
+## 自动创建主题子目录
+
+对于没有适用项目约定的新变更，Skill 会指导 Agent 在写入记录前创建 `<docs-root>/<change-slug>/`。优先复用项目已有的文档根目录（例如 `doc/`）；没有文档根目录时才使用 `docs/`。仅有少量平铺的 Markdown 文件，不代表后续记录必须继续平铺。
+
+```text
+docs/
+├── quick-match-waiting/
+│   ├── requirements.md
+│   ├── progress.md
+│   └── decision.md       # 按需添加的 ADR
+└── dev-rollout-capacity-fix/
+    └── change.md
+```
+
+- Level 0 不创建目录或记录。
+- Level 1 使用 `change.md`；Level 2 使用 `requirements.md` 和 `progress.md`。
+- 需要决策记录时才添加 `decision.md`；已有 ADR 目录时沿用该位置。
+- 同一变更的后续工作更新已有记录；不同变更重名时，使用 Issue 标识或描述性后缀区分。
+- 历史平铺文件保留原位置，同一变更继续原地更新；迁移需要单独提出。
+- 项目明确要求平铺文件或使用外部 Issue/PR 等流程时，优先遵守项目规则。
+
+Agent 会创建缺失的父目录、写入实际内容，并检查生成文件及本地链接。创建失败时必须报告路径和原因，不能静默退回平铺文件。本方案通过技能指令实现，不新增初始化脚本。完整规则及落位检查场景见[文档发现与落位](references/documentation-discovery.md)。
+
 ## 仓库结构
 
 - `SKILL.md`：供 AI Agent 运行时读取的主要规则。
