@@ -19,8 +19,8 @@ Use this skill when a task changes business behavior, interfaces, data, protocol
 1. Classify the requested change and identify whether traceability is required.
 2. Select the minimum sufficient traceability level; if multiple conditions apply, use the highest level.
 3. Read `references/documentation-discovery.md` before creating or relocating records. Discover the project's documentation location, naming conventions, templates, and collaboration records; distinguish explicit rules from incidental flat files.
-4. Resolve the record location and create missing parent directories before writing substantive records, before or during implementation. For a new change without an applicable project convention, use `<docs-root>/<change-slug>/`; use `docs` as the root only when no documentation root exists. Reuse records for the same change, including legacy flat files.
-5. Keep requirements, assumptions, decisions, progress, deviations, and risks synchronized with the actual implementation.
+4. Resolve whether to reuse an existing topic or create an independent record using `references/documentation-discovery.md`. Create missing parent directories before writing substantive records, before or during implementation. For a new topic without an applicable project convention, use `<docs-root>/<change-slug>/`; use `docs` as the root only when no documentation root exists. Reuse records for continuing work and related small fixes when their history and evidence remain clear, including legacy flat files.
+5. Keep requirements, assumptions, decisions, progress, deviations, and risks synchronized with the actual implementation at the update points below.
 6. Link acceptance criteria to concrete verification evidence.
 7. Before delivery, verify that the intended files exist at the resolved paths, contain substantive content, and have working local links. Check that the record is complete, current, and does not claim unverified results. Report creation failures without silently falling back to flat files.
 8. Report the selected level, updated records, evidence, unexecuted checks, deviations, risks, and remaining work.
@@ -28,7 +28,7 @@ Use this skill when a task changes business behavior, interfaces, data, protocol
 Read the relevant reference only when the current task needs its detail:
 
 - `references/traceability-levels.md` for level selection.
-- `references/documentation-discovery.md` for placement precedence, automatic topic-directory creation, naming, and legacy records.
+- `references/documentation-discovery.md` for placement precedence, topic reuse versus independent records, directory creation, naming, legacy records, and existing indexes.
 - `references/lightweight-template.md` for a small change record.
 - `references/requirements-template.md` for a full business requirements record.
 - `references/progress-template.md` for implementation and verification progress.
@@ -42,6 +42,19 @@ Read the relevant reference only when the current task needs its detail:
 - **Level 1 — lightweight trace:** localized bug fixes or small internal behavior changes that do not alter public contracts, protocols, data models, security boundaries, or concurrency semantics.
 - **Level 2 — full business trace:** new functionality, workflow or state-model changes, public API/protocol/data changes, security or concurrency changes, migrations, cross-module changes, release-critical work, or an explicit request for complete documentation.
 - **ADR — decision trace:** add an ADR-style record when a material technical choice has multiple viable alternatives, significant impact, or a meaningful rollback strategy. ADR may accompany Level 1 or Level 2.
+
+## Record maintenance
+
+For changes requiring a trace record, update it at meaningful points:
+
+- When requirements, scope, or acceptance criteria change, update the requirements and change history before implementing the revised behavior. Distinguish confirmed changes from assumptions.
+- After a meaningful implementation milestone or a material verification result changes, update progress, evidence, deviations, risks, and remaining work. Record milestones rather than every search, command, or tool call.
+- Before pausing or handing off, leave the current stage, verified scope, blockers, relevant record/code links, and a concrete next action sufficient for another developer to resume from the records and code.
+- At delivery, reconcile the final state with acceptance evidence and synchronize any existing index according to `references/documentation-discovery.md`.
+
+Keep requirements focused on intended behavior and acceptance; put implementation history in progress. For Level 1, keep those roles in distinct sections of the same record, including explicit acceptance criteria. Adapt to project templates without adding duplicate records or unrelated stages.
+
+Use the project's status vocabulary and qualify completion by the evidence available, such as implementation complete, local verification complete, or integration pending. Do not mark unmet in-scope acceptance criteria as complete. Keep current status and next actions up to date rather than copying the initial plan unchanged.
 
 ## Review boundary
 

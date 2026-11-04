@@ -100,6 +100,15 @@ When multiple conditions apply, use the highest applicable level. An explicit us
 
 Traceability is a living record, not a retrospective summary written only after coding is finished.
 
+## Keeping records useful
+
+- Update requirements and change history before implementing revised scope or acceptance criteria. Update progress at meaningful milestones and when material verification results change, rather than logging every tool call.
+- Before pausing or handing off, record the current stage, verified scope, blockers, relevant links, and a concrete next action so another developer can resume from the records and code.
+- Lightweight records also include goals, scope, explicit acceptance criteria, implementation progress, and evidence. Root-cause analysis applies to defects; other small behavior changes do not need an invented root cause.
+- Reuse an existing documentation index: add an entry when a record is created, reconcile it at delivery, and correct stale completion status when work reopens. Detailed progress stays in the record; no index is required when the project has none.
+
+The [record maintenance rules](SKILL.md#record-maintenance), [progress template](references/progress-template.md), [lightweight template](references/lightweight-template.md), and [index guidance](references/documentation-discovery.md#existing-indexes) provide the details. These practices preserve the existing placement precedence and risk-based traceability levels.
+
 ## Language policy
 
 The skill's default templates are written in English for portability. Generated records should follow this order:
@@ -121,7 +130,7 @@ The host project's rules, paths, templates, terminology, and collaboration workf
 
 ## Automatic topic directories
 
-For a new change without an applicable project convention, the skill instructs the agent to create `<docs-root>/<change-slug>/` before writing records. It reuses the project's documentation root (for example, `doc/`); only a project without one defaults to `docs/`. A few existing flat Markdown files alone do not require future records to remain flat.
+For a new topic without an applicable project convention, the skill instructs the agent to create `<docs-root>/<change-slug>/` before writing records. It reuses the project's documentation root (for example, `doc/`); only a project without one defaults to `docs/`. A few existing flat Markdown files alone do not require future records to remain flat.
 
 ```text
 docs/
@@ -136,9 +145,11 @@ docs/
 - Level 0 creates no directory or record.
 - Level 1 uses `change.md`; Level 2 uses `requirements.md` and `progress.md`.
 - Add `decision.md` only when needed; reuse an established ADR location if one exists.
-- Repeated work on the same change updates its existing records. Distinct changes with colliding names use an issue identifier or descriptive qualifier.
+- Continuing a feature or making a small related fix reuses its topic when scope, history, and evidence remain clear. Changes needing independent goal, acceptance, or rollback tracking get separate topics linked to the relevant feature records.
+- Topic reuse does not lower the traceability level or make past verification valid for new behavior. Distinct topics with colliding names use an issue identifier or descriptive qualifier.
 - Historical flat records stay in place and are updated there for the same change. Migration requires a separate request.
 - Explicit project placement rules, including flat-only and external issue/PR workflows, take precedence.
+- Existing category layouts such as `docs/features/` and filenames such as `decisions.md` are preserved. The fallback adds no category layer between the documentation root and a topic.
 
 The agent creates missing parent directories, writes substantive content, and checks the resulting files and local links. A creation failure must be reported with the path and cause; it must not silently fall back to a flat file. This is an instruction-based workflow, with no initialization script added. See [documentation discovery and placement](references/documentation-discovery.md) for the full rules and placement review cases.
 

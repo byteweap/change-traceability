@@ -2,6 +2,12 @@
 
 ## Current Status
 
+- Related requirements: <relative link or existing external record>
+- Current stage:
+- Status and verified scope:
+- Current blockers:
+- Last updated: YYYY-MM-DD
+
 ## Implementation Plan
 
 ## Implementation Record
@@ -20,5 +26,11 @@
 ## Risks and Issues
 
 ## Remaining Work
+
+## Resume or Handoff
+
+- Next concrete action:
+- Relevant code, records, or evidence: <links needed to continue>
+- Prerequisites or unresolved decisions:
 
 ## Completion Evidence
