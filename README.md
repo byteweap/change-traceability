@@ -188,4 +188,4 @@ The validator checks packaging and frontmatter; it does not determine whether a 
 
 ## License
 
-Add the repository's chosen open-source license before public release. No license is implied by this repository until one is added.
+Licensed under the [Apache License, Version 2.0](LICENSE).
